@@ -1,6 +1,6 @@
 # CheckerBoardCollection
 
-[[Swift](https://img.shields.io/badge/Swift-3.0-F16D39.svg)]
+![[Swift]](https://img.shields.io/badge/Swift-3.0-F16D39.svg)
 ![CocoaPods](https://img.shields.io/cocoapods/v/CheckerBoardCollection.svg)
 [![Build Status](https://travis-ci.org/Yaro812/CheckerBoardCollection.svg?branch=master)](https://travis-ci.org/Yaro812/CheckerBoardCollection)
 
