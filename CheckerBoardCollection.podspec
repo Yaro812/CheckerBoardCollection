@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/Yaro812/CheckerBoardCollection.git"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Thorax" => "thorax@me.com" }
-  s.source       = { :git => "https://github.com/Yaro812/CheckerBoardCollection.git" }
+  s.source       = { :git => "https://github.com/Yaro812/CheckerBoardCollection.git", :tag => "0.1.2" }
   s.source_files  = 'Classes', 'Classes/*.{swift}'
   s.requires_arc = true
 end
