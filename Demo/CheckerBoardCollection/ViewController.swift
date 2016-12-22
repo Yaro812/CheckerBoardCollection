@@ -16,13 +16,9 @@ class ViewController: UIViewController, CheckerBoardLayoutDelegate {
         
         let layout = CheckerBoardLayout()
         layout.delegate = self
-        layout.minimumInteritemSpacing = 0
+        layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
-        layout.itemSize = CGSize(width: 100, height: 100)
-        layout.headerReferenceSize  = CGSize(width: 320, height: 50)
-        layout.footerReferenceSize = CGSize(width: 320, height: 50)
-        layout.shift = layout.itemSize.height / 2
         layout.columns = 5
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
@@ -30,9 +26,14 @@ class ViewController: UIViewController, CheckerBoardLayoutDelegate {
         collectionView?.delegate = self
         collectionView.map { self.view.addSubview($0) }
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView?.collectionViewLayout.invalidateLayout()
         collectionView?.reloadData()
     }
-
+    
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -47,6 +48,9 @@ extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"cell", for: indexPath)
         cell.backgroundColor = .orange
+        if let layout = collectionView.collectionViewLayout as? CheckerBoardLayout {
+            cell.layer.cornerRadius = layout.itemSize.width / 2
+        }
         return cell
     }
 }

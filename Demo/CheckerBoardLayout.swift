@@ -87,8 +87,8 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
             height = collectionView.bounds.height
         } else {
             for i in 0..<sections {
-                let cells = cellsInSections[i]
-                height += itemSize.height * CGFloat(cells)
+                let cells = CGFloat(cellsInSections[i]) / CGFloat(cellsPerLine)
+                height += (itemSize.height + minimumLineSpacing) * cells
             }
             height += footerReferenceSize.height * CGFloat(sections)
             height += headerReferenceSize.height * CGFloat(sections)
@@ -115,6 +115,8 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         var item = 0
         var section = 0
         for _ in 0..<startIndex {
+            guard section < sections else { return attributes }
+            
             if item == cellsInSections[section] - 1 {
                 section += 1
                 item = 0
