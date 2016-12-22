@@ -168,6 +168,16 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
+    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let attr = layoutAttributesForItem(at: itemIndexPath),
+            let collectionView = collectionView else { return nil }
+        
+        attr.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+        attr.center = CGPoint(x: attr.center.x, y: collectionView.bounds.midY)
+        return attr
+    }
+    
+    
     // Private
     
     private func centerX(forItemAt indexPath: IndexPath) -> CGFloat {
@@ -270,5 +280,6 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         }
         return height
     }
+    
     
 }

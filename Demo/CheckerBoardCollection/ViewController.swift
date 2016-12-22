@@ -19,7 +19,7 @@ class ViewController: UIViewController, CheckerBoardLayoutDelegate {
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 15)
-        layout.columns = 5
+        layout.columns = 3
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView?.dataSource = self
@@ -47,6 +47,7 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"cell", for: indexPath)
+        cell.layer.removeAllAnimations()
         cell.backgroundColor = .orange
         if let layout = collectionView.collectionViewLayout as? CheckerBoardLayout {
             cell.layer.cornerRadius = layout.itemSize.width / 2
@@ -56,6 +57,34 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let finalFrame = cell.frame
+        let translation = collectionView.panGestureRecognizer.translation(in: collectionView.superview)
+        if translation.y > 0 {
+            cell.frame.origin.y -= cell.frame.height / 2
+        } else {
+            cell.frame.origin.y += cell.frame.height / 2
+        }
+        
+        cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        cell.alpha = 0.5
+        
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: [.allowUserInteraction],
+                       animations: {
+                        cell.transform = CGAffineTransform.identity
+                        cell.frame = finalFrame
+                        cell.alpha = 1
+                        
+        }) { finished in
+            
+        }
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
