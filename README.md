@@ -1,5 +1,7 @@
 # CheckerBoardCollection
 
+[![Build Status](https://travis-ci.org/Yaro812/CheckerBoardCollection.svg?branch=master)](https://travis-ci.org/Yaro812/CheckerBoardCollection)
+
 ## Synopsis
 
 UICollectionView vertical flow layout that lays cells in a checker board style
