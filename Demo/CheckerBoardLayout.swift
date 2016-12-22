@@ -38,7 +38,11 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
     
     override func prepare() {
         super.prepare()
+        // This layout is not developed to be used in horizontal direction yet
+        // Obligatory setting scrollDirection to vertical
+        scrollDirection = .vertical
         
+        // If columns are set - automatically calculate cell size and shift
         if columns > 0, let collectionView = collectionView {
             let availableWidth = collectionView.bounds.width - sectionInset.left - sectionInset.right
             let size = floor(availableWidth / CGFloat(columns) - minimumInteritemSpacing)
@@ -144,17 +148,20 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        let attributes = super.layoutAttributesForItem(at: indexPath)
-        attributes?.center = CGPoint(x: centerX(forItemAt: indexPath), y: centerY(forItemAt: indexPath))
+        guard let attributes = super.layoutAttributesForItem(at: indexPath)?
+            .copy() as? UICollectionViewLayoutAttributes else { return nil }
+        
+        attributes.center = CGPoint(x: centerX(forItemAt: indexPath), y: centerY(forItemAt: indexPath))
         return attributes
     }
     
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard !(elementKind == UICollectionElementKindSectionHeader && headerReferenceSize == .zero)
             && !(elementKind == UICollectionElementKindSectionFooter && footerReferenceSize == .zero) else { return nil }
+        guard let attributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)?
+            .copy() as? UICollectionViewLayoutAttributes else { return nil }
         
-        let attributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)
-        attributes?.center = CGPoint(x: centerX(forViewKind: elementKind, at: indexPath.section),
+        attributes.center = CGPoint(x: centerX(forViewKind: elementKind, at: indexPath.section),
                                      y: centerY(forViewKind: elementKind, at: indexPath.section))
         return attributes
     }
