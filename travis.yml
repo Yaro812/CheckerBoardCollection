@@ -2,7 +2,7 @@ language: objective-c
 
 branches:
  only:
- - master
+  - master
 
 xcode_project: CheckerBoardCollection.xcodeproj
 xcode_scheme: SCheckerBoardCollectionTests
@@ -10,5 +10,5 @@ osx_image: xcode8.2
 xcode_sdk: iphonesimulator9.3
 
 script:
-- xcodebuild clean build test -project Demo/CheckerBoardCollection.xcodeproj -scheme CheckerBoardCollection
+  - xcodebuild clean build test -project Demo/CheckerBoardCollection.xcodeproj -scheme Test
 
