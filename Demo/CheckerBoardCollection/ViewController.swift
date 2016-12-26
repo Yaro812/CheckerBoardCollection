@@ -67,8 +67,6 @@ extension ViewController: UICollectionViewDataSource {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath)
             return view
         }
-        
-        print(indexPath)
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "Footer", for: indexPath)
         return view
     }

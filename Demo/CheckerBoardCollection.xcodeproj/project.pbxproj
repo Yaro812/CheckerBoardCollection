@@ -167,7 +167,7 @@
 				TargetAttributes = {
 					6D35095C1E0BD59E00814DF2 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2794N3T97K;
+						DevelopmentTeam = X7MB87VJ6T;
 						ProvisioningStyle = Automatic;
 					};
 					6D3509701E0BD59E00814DF2 = {
@@ -369,7 +369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2794N3T97K;
+				DEVELOPMENT_TEAM = X7MB87VJ6T;
 				INFOPLIST_FILE = CheckerBoardCollection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.spb.thorax.CheckerBoardCollection;
@@ -382,7 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 2794N3T97K;
+				DEVELOPMENT_TEAM = X7MB87VJ6T;
 				INFOPLIST_FILE = CheckerBoardCollection/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.spb.thorax.CheckerBoardCollection;

@@ -100,22 +100,22 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var attributes: [UICollectionViewLayoutAttributes] = []
         
-        let startIndex: Int!
-        let endIndex: Int!
+        var startIndex: Int = 0
+        var endIndex: Int = 0
         if scrollDirection == .horizontal {
-            let widthForItem = itemSize.width + minimumInteritemSpacing
-            startIndex = Int(max(rect.minX / widthForItem, 0))
-            endIndex = Int(min(rect.maxX / widthForItem, CGFloat(cells)))
+            
         } else {
             let heightForItem = itemSize.height + minimumLineSpacing
-            startIndex = Int(max(ceil(rect.minY / heightForItem) * CGFloat(cellsPerLine), 0))
+            startIndex = Int(max(ceil(rect.minY / heightForItem * CGFloat(cellsPerLine)), 0))
             endIndex = Int(min(ceil(rect.maxY / heightForItem * CGFloat(cellsPerLine)), CGFloat(cells)))
         }
         
         var item = 0
         var section = 0
         for _ in 0..<startIndex {
-            guard section < sections else { return attributes }
+            guard section < sections else {
+                print("Section \(section) is beyond range \(sections)")
+                return attributes }
             
             if item == cellsInSections[section] - 1 {
                 section += 1
@@ -125,22 +125,19 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
             }
         }
         
+        // Section header and footer
+        if let attrs = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+                                                            at: IndexPath(row: 0, section: section)) {
+            attributes.append(attrs)
+        }
+        if let attrs = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter,
+                                                            at: IndexPath(row: 0, section: section)) {
+            attributes.append(attrs)
+        }
+        
         for _ in startIndex..<endIndex {
             let indexPath = IndexPath(item: item, section: section)
-            // Section header
-            if item == 0 {
-                if let attrs = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
-                                                                    at: indexPath) {
-                    attributes.append(attrs)
-                }
-            }
-            // Section header
-            if item == 1 {
-                if let attrs = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter,
-                                                                    at: IndexPath(row: 1, section: section)) {
-                    attributes.append(attrs)
-                }
-            }
+            
             
             if let attrs = layoutAttributesForItem(at: indexPath) {
                 attributes.append(attrs)
@@ -167,23 +164,19 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard !(elementKind == UICollectionElementKindSectionHeader && headerReferenceSize == .zero)
             && !(elementKind == UICollectionElementKindSectionFooter && footerReferenceSize == .zero) else { return nil }
-        guard let attributes = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)?
-            .copy() as? UICollectionViewLayoutAttributes else { return nil }
         
-        attributes.center = CGPoint(x: centerX(forViewKind: elementKind, at: indexPath.section),
+        var attributes: UICollectionViewLayoutAttributes?
+        if let attr = super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)?
+            .copy() as? UICollectionViewLayoutAttributes {
+            attributes = attr
+        } else {
+            attributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
+        }
+        
+        attributes?.center = CGPoint(x: centerX(forViewKind: elementKind, at: indexPath.section),
                                      y: centerY(forViewKind: elementKind, at: indexPath.section))
         return attributes
     }
-    
-//    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-//        guard let attr = layoutAttributesForItem(at: itemIndexPath),
-//            let collectionView = collectionView else { return nil }
-//        
-//        attr.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-//        attr.center = CGPoint(x: attr.center.x, y: collectionView.bounds.midY)
-//        return attr
-//    }
-    
     
     // Private
     
