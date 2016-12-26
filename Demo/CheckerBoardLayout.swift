@@ -8,26 +8,26 @@
 
 import UIKit
 
-protocol CheckerBoardLayoutDelegate: class {
+public protocol CheckerBoardLayoutDelegate: class {
     
 }
 
-class CheckerBoardLayout: UICollectionViewFlowLayout {
-    weak var delegate: CheckerBoardLayoutDelegate?
-    var shift: CGFloat = 0
-    var columns: Int = 0
+public class CheckerBoardLayout: UICollectionViewFlowLayout {
+    public weak var delegate: CheckerBoardLayoutDelegate?
+   public var shift: CGFloat = 0
+   public var columns: Int = 0
     
     fileprivate var sections = 0
     fileprivate var cells   = 0
     fileprivate var cellsPerLine = 0
     fileprivate var cellsInSections: [Int] = []
     
-    override init() {
+    public override init() {
         super.init()
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -36,7 +36,7 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         scrollDirection = .vertical
     }
     
-    override func prepare() {
+    override public func prepare() {
         super.prepare()
         // This layout is not developed to be used in horizontal direction yet
         // Obligatory setting scrollDirection to vertical
@@ -68,11 +68,11 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         }
     }
     
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+    override public func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
-    override var collectionViewContentSize: CGSize {
+    override public var collectionViewContentSize: CGSize {
         guard let collectionView = collectionView else { return .zero }
         
         var width: CGFloat = 0
@@ -97,7 +97,7 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         return CGSize(width: width, height: height)
     }
     
-    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override public func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var attributes: [UICollectionViewLayoutAttributes] = []
         
         var startIndex: Int = 0
@@ -153,7 +153,7 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
-    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override public func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard let attributes = super.layoutAttributesForItem(at: indexPath)?
             .copy() as? UICollectionViewLayoutAttributes else { return nil }
         
@@ -161,7 +161,7 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
-    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+    override public func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard !(elementKind == UICollectionElementKindSectionHeader && headerReferenceSize == .zero)
             && !(elementKind == UICollectionElementKindSectionFooter && footerReferenceSize == .zero) else { return nil }
         
