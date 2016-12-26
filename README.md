@@ -7,6 +7,7 @@
 ## Synopsis
 
 UICollectionView vertical flow layout that lays cells in a checker board style
+Horizontal layout is not implemented
 
 ## Installation
 
@@ -17,3 +18,6 @@ Using Cocoapods:
 
 To use automatic cell size calculation set property _columns_ to some value > 0
 `layout.columns = 3`
+
+## Problems
+There is a bug in rows calculation when Header of Footer height is more than 0
