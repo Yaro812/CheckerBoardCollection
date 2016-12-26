@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CheckerBoardCollection"
-  s.version      = "0.1"
+  s.version      = "0.1.31"
   s.platform     = :ios, '9.0'
   s.summary      = "UICollectionView vertical flow layout"
   s.homepage     = "https://github.com/Yaro812/CheckerBoardCollection.git"
