@@ -134,6 +134,13 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
                     attributes.append(attrs)
                 }
             }
+            // Section header
+            if item == 1 {
+                if let attrs = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionFooter,
+                                                                    at: IndexPath(row: 1, section: section)) {
+                    attributes.append(attrs)
+                }
+            }
             
             if let attrs = layoutAttributesForItem(at: indexPath) {
                 attributes.append(attrs)
@@ -168,14 +175,14 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
         return attributes
     }
     
-    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let attr = layoutAttributesForItem(at: itemIndexPath),
-            let collectionView = collectionView else { return nil }
-        
-        attr.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-        attr.center = CGPoint(x: attr.center.x, y: collectionView.bounds.midY)
-        return attr
-    }
+//    override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+//        guard let attr = layoutAttributesForItem(at: itemIndexPath),
+//            let collectionView = collectionView else { return nil }
+//        
+//        attr.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+//        attr.center = CGPoint(x: attr.center.x, y: collectionView.bounds.midY)
+//        return attr
+//    }
     
     
     // Private
@@ -209,7 +216,7 @@ class CheckerBoardLayout: UICollectionViewFlowLayout {
             y += sectionInset.bottom * CGFloat(indexPath.section)
             y += footerReferenceSize.height * CGFloat(indexPath.section)
             
-            // и вот тут вся магия сдвига и происходит
+            // so here is where magic happens
             let indexInLine = indexPath.item % cellsPerLine
             y += indexInLine % 2 == 0 ? 0 : shift
         }
